@@ -1,5 +1,0 @@
-[
-{"id":"1", "description":"Buy groceries", "status":"TO_DO", "createdAt":"2025-01-20T23:09:09.570307602", "updatedAt":"2025-01-20T23:09:09.570430413"}
-,
-{"id":"2", "description":"Buy something else", "status":"TO_DO", "createdAt":"2025-01-20T23:09:12.595157437", "updatedAt":"2025-01-20T23:09:12.59516898"}
-]
