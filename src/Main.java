@@ -8,7 +8,8 @@ public class Main {
                 taskManager.addTask(args[1]);
                 break;
             case "update":
-                System.out.println("Update Task: " + args[1]);
+                System.out.println(args[0] + args[1] + args[2]);
+                //taskManager.updateTask(Integer.parseInt(args[1]), args[2]);
                 break;
             case "delete":
                 System.out.println("Delete Task: " + args[1]);

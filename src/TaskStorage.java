@@ -10,45 +10,48 @@ public class TaskStorage {
     public static final String FILE_NAME = "tasks.json";
 
     public static void saveTasks(List<Task> tasks) {
-        List<String> lines = new ArrayList<>();
-        lines.add("[");
+        StringBuilder builder = new StringBuilder();
+        builder.append("[\n");
         for(int i = 0; i < tasks.size(); i++) {
-            Task t = tasks.get(i);
-            lines.add(t.toJson());
+            builder.append(tasks.get(i).toJson());
             if(i < tasks.size() - 1) {
-                lines.add(",");
+                builder.append(",\n");
             }
         }
-        lines.add("]");
+        builder.append("\n]");
 
         try {
-            Files.write(Paths.get(FILE_NAME), lines);
+            Files.writeString(Paths.get(FILE_NAME), builder.toString());
         }catch (IOException e){
             e.printStackTrace();
         }
     }
 
     public static List<Task> loadTasks() {
-        Path path = Paths.get(FILE_NAME);
+        Path path = Path.of(FILE_NAME);
         List<Task> tasks = new ArrayList<>();
 
-        if(Files.exists(path)) {
+        if(!Files.exists(path)) {
+            return tasks;
+        }
             try{
-                List<String> lines = Files.readAllLines(path);
-                if(lines.size() > 2) {
-                    List<String> taskLines = lines.subList(1, lines.size() - 1);
-                    for(String line: taskLines){
-                        line = line.trim();
-                        if(line.endsWith(",")) {
-                            line = line.substring(0, line.length() - 1);
-                        }
+                String json = Files.readString(path);
+                String[] lines = json
+                        .replace("[", "")
+                        .replace("]", "")
+                        .split("},");
+                for(String line : lines) {
+                    System.out.println(line);
+                    if(!line.endsWith("}")) {
+                        line = line + "}";
                         tasks.add(Task.fromJson(line));
+                    }else {
+                        tasks.add(Task.fromJson(json));
                     }
                 }
             } catch (IOException e) {
                 System.out.println("Erro ao carregar as Tasks: " + e.getMessage());
             }
-        }
         return tasks;
     }
 }

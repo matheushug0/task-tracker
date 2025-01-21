@@ -84,7 +84,9 @@ public class Task {
     }
 
     public static Task fromJson(String json) {
-        json = json.replaceAll("[{}\"]", "");
+        json = json.replace("{", "")
+                .replace("}", "")
+                .replace("\"", "");
         String[] parts = json.split(",");
 
         String id = parts[0].split(":")[1].strip();

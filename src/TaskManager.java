@@ -1,5 +1,5 @@
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class TaskManager {
 
@@ -20,11 +20,16 @@ public class TaskManager {
     //Add Task
     public void addTask(String description) {
         Task task = new Task(description);
-        if(tasks.contains(task)) {
-            System.out.println("Task already exists");
-        }else {
             tasks.add(task);
             System.out.println("Task added successfully! (ID: " + task.getId() + ")");
-        }
+    }
+
+    //Update Task
+    public void updateTask(int id, String description) {
+        //AtomicBoolean success = new AtomicBoolean(false);
+        tasks.stream()
+                .filter(task -> task.getId() == id)
+                .findFirst()
+                .ifPresent(task -> {task.setDescription(description);});
     }
 }
