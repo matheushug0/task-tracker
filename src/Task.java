@@ -10,7 +10,7 @@ public class Task {
     private LocalDateTime updatedAt;
 
     //Date Formater
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
     public Task(String description) {
         this.id = ++lastTaskId;
@@ -38,6 +38,18 @@ public class Task {
 
     public Status getStatus() {
         return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     //Update Status
@@ -69,5 +81,28 @@ public class Task {
     public String toJson() {
         return "{\"id\":\"" + id + "\", \"description\":\"" + description.strip() + "\", \"status\":\"" + status.toString() +
                 "\", \"createdAt\":\"" + createdAt.format(formatter) + "\", \"updatedAt\":\"" + updatedAt.format(formatter) + "\"}";
+    }
+
+    public static Task fromJson(String json) {
+        json = json.replaceAll("[{}\"]", "");
+        String[] parts = json.split(",");
+
+        String id = parts[0].split(":")[1].strip();
+        String description = parts[1].split(":")[1].strip();
+        Status status = Status.valueOf(parts[2].split(":")[1].strip());
+        String createdAt = parts[3].split("[a-z]:")[1].strip();
+        String updatedAt = parts[4].split("[a-z]:")[1].strip();
+
+        Task task = new Task(description);
+        task.setId(Integer.parseInt(id));
+        task.setStatus(status);
+        task.setCreatedAt(LocalDateTime.parse(createdAt, formatter));
+        task.setUpdatedAt(LocalDateTime.parse(updatedAt, formatter));
+
+        if(Integer.parseInt(id) > lastTaskId){
+            lastTaskId = Integer.parseInt(id);
+        }
+
+        return task;
     }
 }

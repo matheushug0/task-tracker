@@ -10,7 +10,7 @@ public class TaskManager {
     }
 
     public List<Task> loadTasks() {
-        return new ArrayList<>();
+        return TaskStorage.loadTasks();
     }
 
     public void saveTasks() {
@@ -20,7 +20,11 @@ public class TaskManager {
     //Add Task
     public void addTask(String description) {
         Task task = new Task(description);
-        tasks.add(task);
-        System.out.println("Task added successfully! (ID: " + task.getId() + ")");
+        if(tasks.contains(task)) {
+            System.out.println("Task already exists");
+        }else {
+            tasks.add(task);
+            System.out.println("Task added successfully! (ID: " + task.getId() + ")");
+        }
     }
 }

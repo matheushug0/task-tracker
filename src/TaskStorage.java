@@ -1,6 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,5 +26,29 @@ public class TaskStorage {
         }catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    public static List<Task> loadTasks() {
+        Path path = Paths.get(FILE_NAME);
+        List<Task> tasks = new ArrayList<>();
+
+        if(Files.exists(path)) {
+            try{
+                List<String> lines = Files.readAllLines(path);
+                if(lines.size() > 2) {
+                    List<String> taskLines = lines.subList(1, lines.size() - 1);
+                    for(String line: taskLines){
+                        line = line.trim();
+                        if(line.endsWith(",")) {
+                            line = line.substring(0, line.length() - 1);
+                        }
+                        tasks.add(Task.fromJson(line));
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("Erro ao carregar as Tasks: " + e.getMessage());
+            }
+        }
+        return tasks;
     }
 }
