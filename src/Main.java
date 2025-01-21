@@ -19,5 +19,6 @@ public class Main {
             default:
                 System.out.println("Unknown command: " + args[0]);
         }
+        taskManager.saveTasks();
     }
 }

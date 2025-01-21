@@ -13,6 +13,10 @@ public class TaskManager {
         return new ArrayList<>();
     }
 
+    public void saveTasks() {
+        TaskStorage.saveTasks(tasks);
+    }
+
     //Add Task
     public void addTask(String description) {
         Task task = new Task(description);

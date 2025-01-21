@@ -65,4 +65,9 @@ public class Task {
                 ", createdAt: " + createdAt.format(formatter) +
                 ", updatedAt: " + updatedAt.format(formatter);
     }
+
+    public String toJson() {
+        return "{\"id\":\"" + id + "\", \"description\":\"" + description.strip() + "\", \"status\":\"" + status.toString() +
+                "\", \"createdAt\":\"" + createdAt.format(formatter) + "\", \"updatedAt\":\"" + updatedAt.format(formatter) + "\"}";
+    }
 }
