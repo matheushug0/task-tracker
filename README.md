@@ -1,6 +1,6 @@
 # <img src="https://roadmap.sh/images/gifs/rocket.gif" width="25px"> Task Tracker CLI
 
-Aplicação com interface de linha de comando CLI(<i>Command Line Application</i>) para gerenciamento de tarefas.
+Aplicação com interface de linha de comando CLI(<i>Command Line Interface</i>) para gerenciamento de tarefas.
 
 ## Comandos
 - **Adicionar Tarefa:** Adiciona uma nova Task com uma descrição.
