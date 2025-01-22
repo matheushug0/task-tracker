@@ -15,7 +15,6 @@ public class TaskStorage {
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
             lines.add(t.toJson());
-            System.out.println(t.toJson());
             if (i < tasks.size() - 1) {
                 lines.add(",");
             }

@@ -63,19 +63,32 @@ public class Task {
         this.updatedAt = LocalDateTime.now();
     }
 
+    public void markToDo(){
+        this.status = Status.TO_DO;
+        this.updatedAt = LocalDateTime.now();
+    }
+
     public void updateDescription(String description) {
         this.description = description;
         this.updatedAt = LocalDateTime.now();
     }
 
+    public static String formatDate(LocalDateTime date) {
+        String[] parts = date.format(formatter).split("T");
+        String[] fullDate = parts[0].split("-");
+        String[] fullHour = parts[1].split(":");
+
+        return fullDate[2] + "/" + fullDate[1] + "/" + fullDate[0] + " - " + fullHour[0] + ":" + fullHour[1] + " " + ((Integer.parseInt(fullHour[0]) > 12 && Integer.parseInt(fullHour[0]) < 23) ? "PM" : "AM");
+    }
+
     @Override
     public String toString() {
         return
-                "id: " + id +
-                ", description: " + description.strip() +
-                ", status: " + status.toString() +
-                ", createdAt: " + createdAt.format(formatter) +
-                ", updatedAt: " + updatedAt.format(formatter);
+                "ID: " + id +
+                " | Description: " + description.strip() +
+                " | Status: " + status.getStatus() +
+                " | Created At: " + formatDate(createdAt) +
+                " | Updated At: " + formatDate(updatedAt);
     }
 
     public String toJson() {

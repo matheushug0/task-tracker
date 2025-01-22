@@ -26,10 +26,66 @@ public class TaskManager {
 
     //Update Task
     public void updateTask(int id, String description) {
-        //AtomicBoolean success = new AtomicBoolean(false);
         tasks.stream()
                 .filter(task -> task.getId() == id)
                 .findFirst()
-                .ifPresent(task -> {task.setDescription(description);});
+                .ifPresentOrElse(task -> {
+                    task.setDescription(description);
+                            System.out.println("Task updated successfully! (ID: " + task.getId() + ")");
+                    },
+                        () -> System.out.println("Task not found!"));
+
+    }
+
+    //Delete Task
+    public void deleteTask(int id) {
+        if(tasks.removeIf(task -> task.getId() == id)){
+            System.out.println("Task deleted successfully! (ID: " + id + ")");
+        }else {
+            System.out.println("Task not found! (ID: " + id + ")");
+        }
+    }
+
+    //Mark Task
+    public void markTask(int id, Status status) {
+        tasks.stream().filter(task -> task.getId() == id).findFirst().ifPresentOrElse(task -> {
+            if(task.getStatus() == status) {
+                System.out.println("Task already marked " + status.getStatus() + "  (ID: " + id + ")");
+                return;
+            }
+            switch (status){
+                case IN_PROGRESS:
+                    task.markInProgress();
+                    break;
+                case DONE:
+                    task.markDone();
+                    break;
+                case TO_DO:
+                    task.markToDo();
+            }
+            System.out.println("Task marked successfully! (ID: " + id + ")");
+        }, () -> System.out.println("Task not found!"));
+    }
+
+    //List
+    public void listTasks(String status) {
+        int count = 0;
+
+        if(status.equals("all")){
+            for(Task task : tasks){
+                System.out.println(task.toString());
+            }
+            return;
+        }
+
+        for (Task task : tasks) {
+            if (task.getStatus() == Status.valueOf(status)) {
+                System.out.println(task.toString());
+                count++;
+            }
+        }
+        if(count < 1){
+            System.out.println("No tasks found!");
+        }
     }
 }

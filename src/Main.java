@@ -3,19 +3,66 @@ public class Main {
 
         TaskManager taskManager = new TaskManager();
 
-        switch (args[0]){
+        if (args.length < 1) {
+            System.out.println("Please enter: Tasker [command] <description>");
+            System.out.println("Example: Tasker add \"Buy something\"");
+        }
+
+        switch (args[0]) {
             case "add":
+                if (args.length < 2) {
+                    System.out.println("Please enter: Tasker add \"Task Description\"");
+                    return;
+                }
                 taskManager.addTask(args[1]);
                 break;
             case "update":
-                System.out.println(args[0] + args[1] + args[2]);
-                //taskManager.updateTask(Integer.parseInt(args[1]), args[2]);
+                if (args.length < 3) {
+                    System.out.println("Please enter: Tasker update ID \"Task Description\"");
+                    return;
+                }
+                taskManager.updateTask(Integer.parseInt(args[1]), args[2]);
                 break;
             case "delete":
-                System.out.println("Delete Task: " + args[1]);
+                if (args.length < 2) {
+                    System.out.println("Please enter: Tasker delete ID");
+                    return;
+                }
+                taskManager.deleteTask(Integer.parseInt(args[1]));
+                break;
+            case "mark-in-progress":
+                if (args.length < 2) {
+                    System.out.println("Please enter: Tasker mark-in-progress ID");
+                    return;
+                }
+                taskManager.markTask(Integer.parseInt(args[1]), Status.IN_PROGRESS);
+                break;
+            case "mark-done":
+                if (args.length < 2) {
+                    System.out.println("Please enter: Tasker mark-done ID");
+                    return;
+                }
+                taskManager.markTask(Integer.parseInt(args[1]), Status.DONE);
+                break;
+            case "mark-to-do":
+                if (args.length < 2) {
+                    System.out.println("Please enter: Tasker mark-to-do ID");
+                    return;
+                }
+                taskManager.markTask(Integer.parseInt(args[1]), Status.TO_DO);
                 break;
             case "list":
-                System.out.println("List Task: " + args[1]);
+                if (args.length < 2) {
+                    taskManager.listTasks("all");
+                } else if (args[1].equals("todo")) {
+                    taskManager.listTasks(Status.TO_DO.toString());
+                } else if (args[1].equals("done")) {
+                    taskManager.listTasks(Status.DONE.toString());
+                } else if (args[1].equals("in-progress")) {
+                    taskManager.listTasks(Status.IN_PROGRESS.toString());
+                } else {
+                    System.out.println("Please enter a valid Status(e.g, done, todo, in-progress)");
+                }
                 break;
             default:
                 System.out.println("Unknown command: " + args[0]);
