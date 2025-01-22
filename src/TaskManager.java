@@ -1,5 +1,5 @@
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.Scanner;
 
 public class TaskManager {
 
@@ -74,6 +74,9 @@ public class TaskManager {
         if(status.equals("all")){
             for(Task task : tasks){
                 System.out.println(task.toString());
+                count++;
+            }if (count < 1) {
+                System.out.println("No tasks found!");
             }
             return;
         }
@@ -86,6 +89,28 @@ public class TaskManager {
         }
         if(count < 1){
             System.out.println("No tasks found!");
+        }
+    }
+
+    //Clear
+    public void clearTasks() {
+        Scanner scanner = new Scanner(System.in);
+
+        if(tasks.isEmpty()){
+            System.out.println("No tasks found!");
+            return;
+        }
+
+        System.out.print("Are you sure? [Y/n]: ");
+        String answer = scanner.nextLine();
+        System.out.println(answer);
+
+        answer = answer.toLowerCase();
+        if (answer.startsWith("y")) {
+            tasks.clear();
+            System.out.println("All Tasks cleared!");
+        }else {
+            System.out.println("Clear Tasks cancelled!");
         }
     }
 }

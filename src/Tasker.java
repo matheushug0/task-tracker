@@ -1,4 +1,4 @@
-public class Main {
+public class Tasker {
     public static void main(String[] args) {
 
         TaskManager taskManager = new TaskManager();
@@ -64,6 +64,26 @@ public class Main {
                     System.out.println("Please enter a valid Status(e.g, done, todo, in-progress)");
                 }
                 break;
+            case "clear":
+                if (args.length < 2) {
+                    taskManager.clearTasks();
+                }
+                break;
+            case "help":
+                System.out.println("-- Task Tracker: How to Use --\n" +
+                        "java Tasker [command] <description>\n" +
+                        "Example: Tasker add \"Buy something\"" +
+                        "\nCommands:" +
+                        "\n* add <description> - Add a task to the list of tasks>" +
+                        "\n* update <id> <description - Update a Task description by ID" +
+                        "\n* mark-in-progress <id> - Mark a Task status for In Progress" +
+                        "\n* mark-done <id> - Mark a Task status for Done" +
+                        "\n* mark-to-do <id> - Mark a Task status for To Do" +
+                        "\n* list - List all Tasks" +
+                        "\n* list done - List Tasks with Done Status" +
+                        "\n* list todo - List Tasks with To Do Status" +
+                        "\n* list in-progress - List Tasks with In Progress Status" +
+                        "\n* clear - Clear all tasks");
             default:
                 System.out.println("Unknown command: " + args[0]);
         }
