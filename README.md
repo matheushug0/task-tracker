@@ -15,7 +15,7 @@ Aplicação com interface de linha de comando CLI(<i>Command Line Interface</i>)
 1. **Clone o Repositório:**
 ```bash
 git clone https://github.com/matheushug0/task-tracker.git
-cd task-tracker
+cd task-tracker/src/
 ```
 2. **Compile o código-fonte da aplicação:**
 ```bash

@@ -84,6 +84,7 @@ public class Tasker {
                         "\n* list todo - List Tasks with To Do Status" +
                         "\n* list in-progress - List Tasks with In Progress Status" +
                         "\n* clear - Clear all tasks");
+                break;
             default:
                 System.out.println("Unknown command: " + args[0]);
         }
