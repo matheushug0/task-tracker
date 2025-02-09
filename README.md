@@ -28,7 +28,7 @@ javac Tasker.java Task.java TaskManager.java TaskStorage.java Status.java
 java Tasker [command] [param]
 ```
 
-## Uso da Aplicação
+## Usage
 ```bash
 # Add a task  
 java Tasker add "New Task"  
